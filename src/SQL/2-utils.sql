@@ -1,0 +1,57 @@
+CREATE TABLE IF NOT EXISTS item_category(
+	id INT(10) NOT NULL AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	description VARCHAR(255),
+	lft INT(10),
+	rght INT(10),
+	parent_id INT(10),
+	level INT(10),
+	PRIMARY KEY (id),
+	FOREIGN KEY (parent_id)
+		REFERENCES item_category(id)
+		ON DELETE CASCADE
+)ENGINE=InnoDB;
+INSERT INTO item_category VALUES(NULL,'Category','This is used as a General Term for Items that does not belong to any Category',1,2,NULL,0);
+
+CREATE TABLE IF NOT EXISTS unit (
+	id INT(10) NOT NULL AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	code VARCHAR(10) NOT NULL,
+	description VARCHAR(255),
+	unit_type_id INT(10) NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (unit_type_id)
+		REFERENCES unit_type(id)
+		ON DELETE CASCADE,
+	UNIQUE (code)
+)ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS payment_term(
+	id INT(10) NOT NULL AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	days INT(10) NOT NULL,
+	description VARCHAR(255),
+	PRIMARY KEY (id)
+)ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS taxing_scheme(
+	id INT(10) NOT NULL AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	rate DECIMAL(10,4),
+	PRIMARY KEY (id)
+)ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS currency(
+	id INT(10) NOT NULL AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	code VARCHAR(5) NOT NULL,
+	PRIMARY KEY (id)
+)ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS location(
+	id INT(10) NOT NULL AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	code VARCHAR(10) NOT NULL,
+	PRIMARY KEY (id),
+	UNIQUE (code)
+)ENGINE=InnoDB;
